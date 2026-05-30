@@ -1,0 +1,26 @@
+{
+  "name": "pi-today",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "Apache-2.0",
+  "keywords": ["pi-package", "pi-extension", "date", "system-prompt"],
+  "description": "A pi extension that prepends today's date to the system prompt for new sessions",
+  "files": ["extensions"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jandrikus/pi-today.git"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "typebox": "*"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "latest",
+    "vitest": "latest"
+  }
+}

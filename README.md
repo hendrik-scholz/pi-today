@@ -37,7 +37,7 @@ No configuration needed. The extension works automatically:
 
 Example: `Current date: Thursday, May 30, 2025 at 2:00 PM`
 
-The date and the time is injected on the **first message only** — subsequent messages in the same session reuse the cached system prompt.
+The date and the current time is injected on the **first message only** — subsequent messages in the same session reuse the cached system prompt.
 
 ## How It Works
 

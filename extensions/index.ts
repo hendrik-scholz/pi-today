@@ -21,7 +21,7 @@ import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 export default function (pi: ExtensionAPI) {
   // Track whether the next message should have the date prepended
   let shouldPrependDate = false;
-  let datePrefix = "";
+  let dateTimePrefix = "";
 
   // Set the flag when a new session starts and notify other extensions
   pi.on("session_start", async (event, _ctx) => {
@@ -32,14 +32,16 @@ export default function (pi: ExtensionAPI) {
 
       // Compute the date once and emit it for other extensions
       const now = new Date();
-      const dateStr = now.toLocaleDateString("en-US", {
+      const dateTimeStr = now.toLocaleString("en-US", {
         weekday: "long",
         year: "numeric",
         month: "long",
         day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
       });
-      datePrefix = `Current date: ${dateStr}`;
-      pi.events.emit("today:date", datePrefix);
+      dateTimePrefix = `Current date and time: ${dateTimeStr}`;
+      pi.events.emit("today:date", dateTimePrefix);
     }
   });
 
@@ -52,7 +54,7 @@ export default function (pi: ExtensionAPI) {
 
     // Prepend the date to the system prompt for this turn
     return {
-      systemPrompt: `${datePrefix}\n\n${event.systemPrompt}`,
+      systemPrompt: `${dateTimePrefix}\n\n${event.systemPrompt}`,
     };
   });
 }

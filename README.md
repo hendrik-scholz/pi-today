@@ -1,6 +1,6 @@
 # pi-today
 
-A [pi](https://pi.dev) extension that prepends today's date to the system prompt for new sessions.
+A [pi](https://pi.dev) extension that prepends today's date and the current time to the system prompt for new sessions.
 
 LLMs don't inherently know the current date. This extension ensures the model can give accurate date-based answers, avoid "as of my last training cutoff" disclaimers, and use proper date references in responses.
 
@@ -9,7 +9,7 @@ LLMs don't inherently know the current date. This extension ensures the model ca
 ### Via `pi install` (recommended)
 
 ```bash
-pi install git:github.com/jandrikus/pi-today
+pi install git:github.com/hendrik-scholz/pi-today
 ```
 
 ### Manual
@@ -33,16 +33,16 @@ cp -r pi-today .pi/extensions/
 No configuration needed. The extension works automatically:
 
 1. Start a new session (launch `pi` or use `/new`)
-2. The system prompt is prepended with: `Current date: [Day], [Month] [Day], [Year]`
+2. The system prompt is prepended with: `Current date: [Day], [Month] [Day], [Year] [Hour]:[Minute]`
 
-Example: `Current date: Thursday, May 30, 2025`
+Example: `Current date: Thursday, May 30, 2025 at 2:00 PM`
 
-The date is injected on the **first message only** — subsequent messages in the same session reuse the cached system prompt.
+The date and the current time is injected on the **first message only** — subsequent messages in the same session reuse the cached system prompt.
 
 ## How It Works
 
-1. On `session_start` (new session or `/new`), the extension computes today's date
-2. On the first `before_agent_start` event, it prepends the date to the system prompt via the return value
+1. On `session_start` (new session or `/new`), the extension computes today's date and the current time
+2. On the first `before_agent_start` event, it prepends the date and the current time to the system prompt via the return value
 3. All subsequent messages skip the injection — preserving prompt cache and reducing costs
 
 The extension also emits a `today:date` event via `pi.events`, making the date available to other extensions (e.g., [pi-system-prompt](https://github.com/jandrikus/pi-system-prompt) displays it in `/system-prompt` output).
